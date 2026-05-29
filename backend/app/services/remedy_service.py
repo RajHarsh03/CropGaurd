@@ -473,6 +473,97 @@ DISEASE_DATABASE: dict[str, DiseaseInfo] = {
         ],
         "severity": "low",
     },
+    "Blueberry___healthy": {
+        "display_name": "Blueberry – Healthy",
+        "plant": "Blueberry",
+        "disease": "Healthy",
+        "description": (
+            "Your blueberry plant is in excellent condition with no visible disease or pest "
+            "symptoms. Maintain your current care regimen to ensure continued productivity and fruit quality."
+        ),
+        "symptoms": [
+            "Vibrant green, glossy leaves with no spots or lesions",
+            "Strong, upright canes with normal growth pattern",
+            "Healthy flower buds and blooms",
+            "Firm, well-colored developing berries",
+            "No pest infestations visible",
+        ],
+        "causes": "N/A – plant is healthy",
+        "remedies": ["No treatment required"],
+        "prevention": [
+            "Maintain soil pH between 4.5–5.5 (acidic)",
+            "Ensure consistent moisture during growing and fruiting season",
+            "Apply balanced NPK fertilizer in early spring",
+            "Mulch with pine needles or peat moss to maintain acidity",
+            "Scout weekly for pests like blueberry maggot and Japanese beetles",
+        ],
+        "severity": "low",
+    },
+    "Orange___Haunglongbing_(Citrus_greening)": {
+        "display_name": "Orange – Huanglongbing (Citrus Greening)",
+        "plant": "Orange",
+        "disease": "Huanglongbing (Citrus Greening)",
+        "description": (
+            "Citrus Greening, also known as Huanglongbing (HLB), is one of the most destructive "
+            "citrus diseases worldwide. It is caused by the bacterium Candidatus Liberibacter and "
+            "is spread by the Asian citrus psyllid. Infected trees produce bitter, misshapen fruit "
+            "and typically die within 5–8 years if untreated."
+        ),
+        "symptoms": [
+            "Yellowing of veins on leaves followed by blotchy yellow mottle",
+            "Asymmetrical leaf yellowing with green areas remaining",
+            "Premature leaf drop from lower parts of tree",
+            "Asymmetrical fruit with yellow discoloration",
+            "Misshapen, small, bitter fruit with aborted seeds",
+            "Fruit does not ripen normally, remains green or yellow-blotched",
+            "Fruit drop and poor fruit set",
+        ],
+        "causes": "Candidatus Liberibacter asiaticus bacterium, transmitted by Asian citrus psyllid (Diaphorina citri)",
+        "remedies": [
+            "No complete cure exists; remove and destroy infected trees to prevent spread",
+            "Apply systemic insecticides (imidacloprid, thiamethoxam) to control psyllid vectors",
+            "Use antibiotics (oxytetracycline, streptomycin) as experimental palliative treatments",
+            "Apply nutritional sprays (zinc, manganese, iron) to boost tree resilience",
+            "Implement intensive psyllid management through regular monitoring and spraying",
+        ],
+        "prevention": [
+            "Quarantine and certify nursery stock to ensure disease-free material",
+            "Use only disease-free grafts and rootstocks",
+            "Plant resistant or tolerant varieties where available",
+            "Establish citrus-free zones (600+ meters) around orchards",
+            "Control Asian citrus psyllid with sticky traps and systemic insecticides",
+            "Scout trees regularly (weekly) for psyllid nymphs and adults",
+            "Remove alternate host plants near orchards",
+        ],
+        "severity": "high",
+    },
+    "Raspberry___healthy": {
+        "display_name": "Raspberry – Healthy",
+        "plant": "Raspberry",
+        "disease": "Healthy",
+        "description": (
+            "Your raspberry plant is thriving with no visible signs of disease or pest damage. "
+            "Continue your management practices to maintain healthy canes and maximize fruit production."
+        ),
+        "symptoms": [
+            "Bright green, healthy canes with appropriate vigor",
+            "Clean leaves with no spots, discoloration, or wilting",
+            "Strong flowering and fruit set",
+            "Well-formed berries with good color and firmness",
+            "No visible pest damage or webbing",
+        ],
+        "causes": "N/A – plant is healthy",
+        "remedies": ["No treatment required"],
+        "prevention": [
+            "Prune canes after fruiting to remove 2-year-old canes",
+            "Maintain soil moisture during fruiting period",
+            "Apply balanced fertilizer (NPK 10-10-10) in early spring",
+            "Install trellising to improve air circulation and reduce disease pressure",
+            "Scout weekly for spider mites, raspberry beetles, and cane diseases",
+            "Remove and destroy any diseased or damaged canes immediately",
+        ],
+        "severity": "low",
+    },
 }
 
 

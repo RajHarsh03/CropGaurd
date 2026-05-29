@@ -105,6 +105,14 @@ crop-disease-detection/Dataset/PlantVillage/
 The folder must contain subdirectories named after each class:
 ```
 Dataset/PlantVillage/
+  Blueberry___healthy/
+  Orange___Haunglongbing_(Citrus_greening)
+  Potato___Early_blight/
+  Potato___Late_blight/
+  Potato___healthy/
+  Pepper__bell___Bacterial_spot/
+  Pepper__bell___healthy/
+  Raspberry___healthy/
   Tomato_Bacterial_spot/
   Tomato_Early_blight/
   Tomato_Late_blight/
@@ -115,11 +123,6 @@ Dataset/PlantVillage/
   Tomato__Tomato_YellowLeaf__Curl_Virus/
   Tomato__Tomato_mosaic_virus/
   Tomato_healthy/
-  Potato___Early_blight/
-  Potato___Late_blight/
-  Potato___healthy/
-  Pepper__bell___Bacterial_spot/
-  Pepper__bell___healthy/
 ```
 
 ---
@@ -131,7 +134,7 @@ cd ml
 
 # Create and activate virtual environment
 python -m venv .venv
-source .venv/bin/activate    # Windows: .venv\Scripts\activate
+.\.venv\Scripts\Activate.ps1   # Linux/macOS: source .venv/bin/activate
 
 # Install ML dependencies
 pip install -r requirements.txt
@@ -157,7 +160,7 @@ cd backend
 
 # Create and activate virtual environment
 python -m venv .venv
-source .venv/bin/activate    # Windows: .venv\Scripts\activate
+.\.venv\Scripts\Activate.ps1   # Linux/macOS: source .venv/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
