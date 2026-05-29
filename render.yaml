@@ -24,11 +24,10 @@ services:
   # Frontend Static Site
   - type: static_site
     name: cropguard-frontend
-    buildCommand: >
-      cd frontend &&
-      npm install &&
-      npm run build
-    staticPublishPath: frontend/dist
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
     envVars:
       - key: VITE_API_URL
         value: https://cropguard-backend.onrender.com
+
