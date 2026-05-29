@@ -12,13 +12,22 @@ An end-to-end deep learning application that detects plant diseases from leaf im
 - ⚡ Real-time inference via FastAPI REST API  
 - 📱 Responsive modern UI (React + Tailwind CSS)  
 
-## 🧬 Supported Classes (15 total)
+## 🧬 Supported Classes (18 total)
 
 | Plant | Conditions |
 |-------|-----------|
-| Tomato | Bacterial Spot, Early Blight, Late Blight, Leaf Mold, Septoria Leaf Spot, Spider Mites, Target Spot, Yellow Leaf Curl Virus, Mosaic Virus, Healthy |
-| Potato | Early Blight, Late Blight, Healthy |
-| Bell Pepper | Bacterial Spot, Healthy |
+| Tomato | Bacterial Spot, Early Blight, Late Blight, Leaf Mold, Septoria Leaf Spot, Spider Mites, Target Spot, Yellow Leaf Curl Virus, Mosaic Virus, Healthy (10 classes) |
+| Potato | Early Blight, Late Blight, Healthy (3 classes) |
+| Bell Pepper | Bacterial Spot, Healthy (2 classes) |
+| Blueberry | Healthy (1 class) |
+| Orange | Huanglongbing/Citrus Greening (1 class) |
+| Raspberry | Healthy (1 class) |
+
+**Training Dataset Distribution:**
+- Total Classes: **18**
+- Total Plant Types: **6** (Tomato, Potato, Bell Pepper, Blueberry, Orange, Raspberry)
+- Healthy Classes: **6**
+- Disease Classes: **12**
 
 ## 📁 Project Structure
 
@@ -71,7 +80,7 @@ crop-disease-detection/
 │   └── PlantVillage/
 │       ├── Tomato_Bacterial_spot/
 │       ├── Tomato_healthy/
-│       └── ... (15 classes)
+│       └── ... (16 classes)
 │
 ├── .gitignore
 └── README.md
