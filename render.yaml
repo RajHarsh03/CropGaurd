@@ -28,7 +28,7 @@ services:
       cd frontend &&
       npm install &&
       npm run build
-    staticPublishPath: dist
+    staticPublishPath: frontend/dist
     envVars:
       - key: VITE_API_URL
         value: https://cropguard-backend.onrender.com
