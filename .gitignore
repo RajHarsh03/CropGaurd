@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+env/
+.env
+
+# TensorFlow / ML
+*.keras
+*.h5
+*.pb
+*.onnx
+ml/outputs/
+backend/trained_model/*.keras
+backend/trained_model/__pycache__/
+
+# Node / React
+node_modules/
+dist/
+.cache/
+*.local
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# Dataset 
+Dataset/
+dataset/
