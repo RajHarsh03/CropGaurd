@@ -131,7 +131,7 @@ export default function AboutModal({ isOpen, onClose }) {
               Check out our GitHub repository to contribute code, report issues, or suggest improvements.
             </p>
             <a
-              href="https://github.com"
+              href="https://github.com/RajHarsh03/CropGaurd-AI-Diease-Detection"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block px-3 py-1.5 bg-green-600 text-white text-xs font-medium rounded-lg hover:bg-green-700 transition-colors"

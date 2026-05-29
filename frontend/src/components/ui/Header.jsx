@@ -33,7 +33,7 @@ export default function Header() {
             >
               About
             </button>
-            <a href="#" className="inline-flex items-center gap-2 text-gray-600 font-medium hover:text-green-600 transition-colors">
+            <a href="https://github.com/RajHarsh03/CropGaurd-AI-Diease-Detection" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-gray-600 font-medium hover:text-green-600 transition-colors">
               <Github className="w-4 h-4" />
               GitHub
             </a>

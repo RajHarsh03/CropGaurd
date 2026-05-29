@@ -186,14 +186,13 @@ export default function App() {
                 <h3 className="text-base font-bold text-gray-900 mb-4 tracking-tight">Support</h3>
                 <ul className="text-sm space-y-2.5">
                   <li><a href="#" className="text-gray-600 hover:text-green-600 hover:font-medium transition-all duration-200">Documentation</a></li>
-                  <li><a href="#" className="text-gray-600 hover:text-green-600 hover:font-medium transition-all duration-200">GitHub</a></li>
-                  <li><a href="#" className="text-gray-600 hover:text-green-600 hover:font-medium transition-all duration-200">Report Issue</a></li>
+                  <li><a href="https://github.com/RajHarsh03/CropGaurd-AI-Diease-Detection" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-green-600 hover:font-medium transition-all duration-200">GitHub</a></li>
                 </ul>
               </div>
             </div>
             <div className="border-t border-gray-200 pt-8 text-center">
               <p className="text-sm text-gray-600 mb-2">For educational and research purposes only. Always consult with agronomists for critical decisions.</p>
-              <p className="text-xs text-gray-400">&copy; 2024 CropGuard. All rights reserved.</p>
+              <p className="text-xs text-gray-400">&copy; {new Date().getFullYear()} CropGuard. All rights reserved.</p>
             </div>
           </div>
         </footer>
