@@ -17,7 +17,7 @@ services:
       - key: MODEL_PATH
         value: ./trained_model/crop_disease_model.keras
       - key: CORS_ORIGINS
-        value: https://cropguard-frontend.onrender.com
+        value: https://cropguard-frontend-bnwu.onrender.com
       - key: ENVIRONMENT
         value: production
 
@@ -28,6 +28,6 @@ services:
     buildCommand: npm install && npm run build
     staticPublishPath: dist
     envVars:
-      - key: VITE_API_URL
-        value: https://cropguard-backend.onrender.com
+      - key: VITE_API_BASE_URL
+        value: https://cropguard-backend-hzwo.onrender.com
 
