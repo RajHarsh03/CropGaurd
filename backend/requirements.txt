@@ -3,9 +3,9 @@ uvicorn[standard]==0.32.1
 python-multipart==0.0.12
 pydantic==2.10.3
 pydantic-settings==2.6.1
-tensorflow==2.15.0
-pillow==10.1.0
-numpy==1.24.3
+tensorflow==2.16.0
+pillow==10.2.0
+numpy==1.26.4
 scikit-learn==1.5.2
-matplotlib==3.8.4
+matplotlib==3.9.0
 python-dotenv==1.0.1
