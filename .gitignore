@@ -13,12 +13,10 @@ env/
 .env
 
 # TensorFlow / ML
-*.keras
 *.h5
 *.pb
 *.onnx
 ml/outputs/
-backend/trained_model/*.keras
 backend/trained_model/__pycache__/
 
 # Node / React
