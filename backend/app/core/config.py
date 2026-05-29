@@ -26,5 +26,13 @@ class Settings(BaseSettings):
         env_file = ".env"
         case_sensitive = True
 
+    def __init__(self, **data):
+        super().__init__(**data)
+        # Allow adding production CORS origins via environment variable
+        cors_origins_env = os.getenv("CORS_ORIGINS", "")
+        if cors_origins_env:
+            origins = cors_origins_env.split(",")
+            self.ALLOWED_ORIGINS.extend([origin.strip() for origin in origins])
+
 
 settings = Settings()

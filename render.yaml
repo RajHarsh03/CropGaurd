@@ -1,0 +1,34 @@
+services:
+  # Backend API Service
+  - type: web
+    name: cropguard-backend
+    runtime: python
+    plan: free
+    buildCommand: >
+      cd backend &&
+      pip install -r requirements.txt
+    startCommand: >
+      cd backend &&
+      uvicorn app.main:app --host 0.0.0.0 --port 8000
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: 1
+      - key: MODEL_PATH
+        value: ./trained_model/crop_disease_model.keras
+      - key: CORS_ORIGINS
+        value: https://cropguard-frontend.onrender.com
+      - key: ENVIRONMENT
+        value: production
+
+  # Frontend Static Site
+  - type: static_site
+    name: cropguard-frontend
+    buildCommand: >
+      cd frontend &&
+      npm install &&
+      npm run build
+    staticPublishPath: frontend/dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://cropguard-backend.onrender.com
