@@ -6,7 +6,6 @@ __pycache__/
 *.so
 *.egg
 *.egg-info/
-dist/
 build/
 .venv/
 venv/
@@ -24,7 +23,6 @@ backend/trained_model/__pycache__/
 
 # Node / React
 node_modules/
-dist/
 .cache/
 *.local
 
