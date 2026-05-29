@@ -260,113 +260,107 @@ Input (224×224×3)
 
 ---
 
-## Deployment Guide
+## 🚀 Deployment Guide (Render)
 
-### Frontend Deployment (Vercel)
-
-1. **Build the frontend:**
-```bash
-cd frontend
-npm run build
-```
-
-2. **Deploy to Vercel:**
-
-**Option A: Via Vercel CLI**
-```bash
-npm install -g vercel
-vercel
-```
-
-**Option B: Via GitHub (Recommended)**
-- Push your repo to GitHub
-- Go to [vercel.com](https://vercel.com)
-- Click "New Project" → Select your repository
-- Vercel auto-detects it's a Vite project
-- Click "Deploy"
-
-3. **Configure environment variables in Vercel dashboard:**
-```
-VITE_API_URL=https://your-render-backend.onrender.com
-```
-
-4. **Your frontend is live at:** `https://your-project.vercel.app`
+Both the backend and frontend are deployed on [Render](https://render.com) using the `render.yaml` blueprint in the repo root.
 
 ---
 
-### Backend Deployment (Render)
+### Prerequisites
 
-1. **Prepare the backend:**
+- A [Render](https://render.com) account (free tier works)
+- Repository pushed to GitHub
+- Trained model file (`backend/trained_model/crop_disease_model.keras`) committed to Git
 
-Create `render.yaml` in the root of your repo:
+> ⚠️ **Important:** Make sure `.gitignore` does NOT exclude `*.keras` files, otherwise the model won't be pushed to GitHub and the backend will fail to start on Render.
+
+---
+
+### Architecture Overview
+
+```
+┌─────────────────────────┐       ┌─────────────────────────┐
+│   Frontend (Static)     │       │   Backend (Web Service)  │
+│   Render Static Site    │──────▶│   Render Web Service     │
+│   React + Vite          │       │   FastAPI + TensorFlow   │
+│   cropguard-frontend    │       │   cropguard-backend      │
+└─────────────────────────┘       └─────────────────────────┘
+```
+
+---
+
+### Step 1 – Deploy via Render Blueprint
+
+1. Push your repo to GitHub
+2. Go to [render.com](https://render.com) → Sign in with GitHub
+3. Click **"New"** → **"Blueprint"**
+4. Select your repository
+5. Render auto-detects the `render.yaml` and creates both services
+6. Click **"Apply"**
+
+The `render.yaml` defines two services:
+
+**Backend (Web Service):**
 ```yaml
-services:
-  - type: web
-    name: crop-guard-backend
-    env: python
-    plan: free
-    buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
-    envVars:
-      - key: MODEL_PATH
-        value: ./trained_model
-      - key: CORS_ORIGINS
-        value: https://your-frontend-url.vercel.app
+- type: web
+  name: cropguard-backend
+  runtime: python
+  plan: free
+  buildCommand: cd backend && pip install -r requirements.txt
+  startCommand: cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT
+  healthCheckPath: /api/v1/health
 ```
 
-2. **Push to GitHub:**
-```bash
-git add .
-git commit -m "Add Render deployment config"
-git push origin main
+**Frontend (Static Site):**
+```yaml
+- type: static_site
+  name: cropguard-frontend
+  rootDir: frontend
+  buildCommand: npm install && npm run build
+  staticPublishPath: dist
 ```
-
-3. **Deploy to Render:**
-
-- Go to [render.com](https://render.com)
-- Sign in with GitHub
-- Click "New" → "Web Service"
-- Select your repository
-- Render auto-detects the `render.yaml`
-- Click "Create Web Service"
-
-4. **Configure in Render dashboard:**
-- Go to your service settings
-- Under "Environment" add:
-  ```
-  MODEL_PATH=./trained_model
-  CORS_ORIGINS=https://your-frontend-url.vercel.app
-  ```
-
-5. **Your backend is live at:** `https://your-project.onrender.com`
 
 ---
 
-### Complete Integration
+### Step 2 – Configure Environment Variables
 
-**Step 1:** Deploy backend first on Render
-- Note your Render URL: `https://your-project.onrender.com`
+After both services are created, note their URLs from the Render dashboard (e.g., `https://cropguard-backend-xxxx.onrender.com` and `https://cropguard-frontend-xxxx.onrender.com`).
 
-**Step 2:** Update frontend environment variable
+**Backend environment variables** (Service → Environment):
 
-In `frontend/.env`:
-```
-VITE_API_URL=https://your-project.onrender.com
-```
+| Key | Value |
+|-----|-------|
+| `PYTHONUNBUFFERED` | `1` |
+| `MODEL_PATH` | `./trained_model/crop_disease_model.keras` |
+| `CORS_ORIGINS` | `https://cropguard-frontend-xxxx.onrender.com` |
+| `ENVIRONMENT` | `production` |
 
-**Step 3:** Deploy frontend on Vercel
-- Push changes to GitHub
-- Vercel auto-redeploys
-- Add environment variable in Vercel dashboard:
-  ```
-  VITE_API_URL=https://your-project.onrender.com
-  ```
+**Frontend environment variables** (Service → Environment):
 
-**Step 4:** Verify deployment
+| Key | Value |
+|-----|-------|
+| `VITE_API_BASE_URL` | `https://cropguard-backend-xxxx.onrender.com` |
 
-Test the API:
+> ⚠️ **Important:** The env var must be `VITE_API_BASE_URL` (not `VITE_API_URL`). This must match what the frontend code reads in `src/services/api.js`.
+
+---
+
+### Step 3 – Redeploy Both Services
+
+After updating environment variables:
+
+1. **Backend:** Go to the backend service → **Manual Deploy** → **Deploy latest commit**
+2. **Frontend:** Go to the frontend service → **Manual Deploy** → **Clear build cache & deploy**
+
+> 💡 The frontend **must** be rebuilt (not just redeployed) because `VITE_*` environment variables are baked into the JavaScript bundle at build time.
+
+---
+
+### Step 4 – Verify Deployment
+
+**Test the backend API:**
 ```bash
-curl https://your-project.onrender.com/api/v1/health
+curl https://cropguard-backend-xxxx.onrender.com/api/v1/health
 ```
 
 Expected response:
@@ -378,46 +372,46 @@ Expected response:
 }
 ```
 
+**Test the frontend:**
+
+Visit `https://cropguard-frontend-xxxx.onrender.com` — the "Backend server is offline" banner should NOT appear.
+
 ---
 
-### Update CORS (Important!)
+### How CORS Works
 
-Edit `backend/app/main.py`:
+The backend reads the `CORS_ORIGINS` environment variable at startup and adds those origins to the allowed list (see `backend/app/core/config.py`). Local development origins (`localhost:5173`, `localhost:3000`) are included by default.
 
-```python
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[
-        "https://your-frontend.vercel.app",
-        "https://www.your-frontend.vercel.app",
-        "http://localhost:5173"  # Keep for local development
-    ],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-```
-
-Push changes and Render will auto-redeploy.
+You do **not** need to edit `backend/app/main.py` for CORS — just set the `CORS_ORIGINS` env var in Render with your frontend URL.
 
 ---
 
 ### Troubleshooting
 
-**❌ Models not loading on Render?**
-- Verify `trained_model/` folder is committed to Git
-- Check Render logs: Service → Logs
-- Ensure MODEL_PATH environment variable is set correctly
+**❌ "Publish directory dist does not exist!" on frontend deploy?**
+- Ensure `rootDir` is set to `frontend` in Render dashboard (Settings → Root Directory)
+- Publish Directory should be `dist` (not `frontend/dist`)
+- The `vite.config.js` must have `build.outDir: "dist"` set explicitly
 
-**❌ Frontend can't reach backend?**
-- Confirm CORS_ORIGINS includes your Vercel URL
-- Check network tab in browser DevTools
-- Verify VITE_API_URL is correct in frontend
+**❌ Backend crashes / model not loading?**
+- Verify `backend/trained_model/crop_disease_model.keras` is committed to Git (check `.gitignore`)
+- Check Render logs: Service → Logs
+- Ensure `MODEL_PATH` env var is set to `./trained_model/crop_disease_model.keras`
+
+**❌ "Backend server is offline" on frontend?**
+- Verify the backend is running: visit `https://your-backend.onrender.com/api/v1/health`
+- Ensure `VITE_API_BASE_URL` (not `VITE_API_URL`) is set correctly in frontend env vars
+- **Rebuild** the frontend after changing env vars (Clear build cache & deploy)
+
+**❌ "Cannot reach the server" when clicking Analyze?**
+- Check CORS: `CORS_ORIGINS` on the backend must include the exact frontend URL
+- Check browser DevTools → Network tab for CORS errors
+- Ensure the backend start command uses `--port $PORT` (not a hardcoded port)
 
 **❌ Cold start too slow?**
 - Render free tier sleeps after 15 mins of inactivity
-- First request takes 30 seconds
-- Upgrade to paid tier for production
+- First request after sleep takes ~30–60 seconds (TensorFlow model loading)
+- Upgrade to paid tier for always-on production use
 
 ---
 
